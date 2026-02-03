@@ -249,15 +249,3 @@ Open `frontend/upload.html` or `landing.html` in browser
 
 This project is for **educational and academic use**.
 You are free to modify and extend it.
-
----
-
-If you want, I can also:
-
-* Make a **short README version**
-* Add **screenshots section**
-* Write a **project abstract**
-* Prepare **viva Q&A**
-* Optimize README for **recruiters**
-
-Just tell me 👍
