@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Verifier Portal - TrueDoc</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4", // Same as Issuer
+                        "verify-success": "#10b981", // Emerald for success
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: { "display": ["Inter"] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-[#f6f6f8] dark:bg-background-dark font-display text-slate-900 dark:text-white transition-colors duration-200">
+    
+    <div class="min-h-screen flex flex-col">
+        <header class="w-full bg-white dark:bg-slate-900 border-b dark:border-slate-800 px-4 py-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='landing.html'">
+                    <div class="bg-primary size-9 rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-white text-[20px]">verified_user</span>
+                    </div>
+                    <h2 class="text-xl font-black tracking-tight">TrueDoc <span class="text-xs font-medium text-slate-400 ml-1">Verifier</span></h2>
+                </div>
+                <div class="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+                    Public Access
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow flex items-center justify-center p-4 md:p-8">
+            <div class="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl shadow-xl border dark:border-slate-800 overflow-hidden">
+                <div class="bg-slate-800 dark:bg-slate-950 p-6 text-white border-b border-white/10">
+                    <h1 class="text-xl font-bold">Document Authentication</h1>
+                    <p class="text-slate-400 text-sm">Verify the integrity of a TrueDoc-secured file.</p>
+                </div>
+
+                <div class="p-6 md:p-10 space-y-8">
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold uppercase tracking-wider text-slate-400">Step 1: Compare Document</label>
+                        <div id="dropZone" onclick="document.getElementById('fileInput').click()" 
+                             class="relative group border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-8 md:p-12 text-center transition-all hover:border-verify-success hover:bg-emerald-50/10 cursor-pointer">
+                            
+                            <input type="file" id="fileInput" class="hidden" onchange="handleFileVerify(event)"/>
+                            
+                            <div class="space-y-4">
+                                <div class="size-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto transition-transform group-hover:scale-110">
+                                    <span class="material-symbols-outlined text-4xl text-verify-success">pageview</span>
+                                </div>
+                                <div>
+                                    <p class="text-lg font-bold">Tap to verify document</p>
+                                    <p class="text-sm text-slate-500">The hash will be checked against the blockchain</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="resultCard" class="hidden p-5 rounded-2xl border-2 flex items-center gap-4 transition-all">
+                        <div id="resultIcon" class="size-12 rounded-xl flex items-center justify-center shrink-0"></div>
+                        <div class="overflow-hidden">
+                            <h3 id="resultTitle" class="font-bold text-base"></h3>
+                            <p id="resultDetails" class="text-xs truncate opacity-80"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/verify.js"></script>
+</body>
+</html>

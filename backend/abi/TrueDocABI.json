@@ -1,0 +1,24 @@
+[
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_docHash", "type": "string" }
+    ],
+    "name": "registerDocument",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_docHash", "type": "string" }
+    ],
+    "name": "verifyDocument",
+    "outputs": [
+      { "internalType": "bool", "name": "exists", "type": "bool" },
+      { "internalType": "address", "name": "issuer", "type": "address" },
+      { "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\gs345\\Desktop\\TrueDoc\\blockchain\\contracts\\TrueDoc.sol": {
+      "lastModificationDate": 1770131734223,
+      "contentHash": "0feb1d6c39dcaa9c92061b6b50a2e977",
+      "sourceName": "contracts/TrueDoc.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "TrueDoc"
+      ]
+    }
+  }
+}
