@@ -1,8 +1,3 @@
-Here’s a **clean, professional, GitHub-ready README** for your project.
-You can copy–paste this directly into `README.md`.
-
----
-
 # 📄 TrueDoc — Blockchain Document Verification System
 
 TrueDoc is a **blockchain-backed document verification system** that provides **proof of existence** for digital documents.
