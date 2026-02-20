@@ -237,10 +237,3 @@ Open `frontend/upload.html` or `landing.html` in browser
 * Upload limits & analytics
 * UI dashboard for issuers
 * Multi-chain support
-
----
-
-## 📜 License
-
-This project is for **educational and academic use**.
-You are free to modify and extend it.
