@@ -5,6 +5,69 @@
 console.log("UPLOAD.JS LOADED");
 let selectedFileHash = "";
 
+function setText(id, value) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.innerText = value;
+    }
+}
+
+function showElement(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.classList.remove("hidden");
+    }
+}
+
+function hideElement(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.classList.add("hidden");
+    }
+}
+
+function setButtonEnabled(id, enabled, label) {
+    const button = document.getElementById(id);
+    if (!button) {
+        return;
+    }
+
+    button.disabled = !enabled;
+
+    if (label) {
+        button.innerText = label;
+    }
+
+    if (enabled) {
+        button.classList.remove("bg-slate-200", "text-slate-400");
+        button.classList.add("bg-primary", "text-white");
+    } else {
+        button.classList.remove("bg-primary", "text-white");
+        button.classList.add("bg-slate-200", "text-slate-400");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const user = await requireAuthenticatedUser(["issuer", "superuser"]);
+    if (!user) {
+        return;
+    }
+
+    updateAuthUI();
+    const status = document.getElementById("walletStatus");
+    if (status) {
+        status.textContent = `${user.name} - ${user.role === "superuser" ? "Admin" : "Issuer"}`;
+        status.classList.remove("hidden");
+    }
+
+    const userOrb = document.getElementById("userOrb");
+    if (userOrb) {
+        userOrb.textContent = (user.name || "U").trim().charAt(0);
+        userOrb.classList.remove("hidden");
+        userOrb.classList.add("flex");
+    }
+});
+
 /**
  * 1. Handle File Selection
  */
@@ -12,24 +75,26 @@ async function handleFileSelect(event) {
     const file = event.target.files[0];
     if (!file) return;
 
-    // Show UI sections
-    document.getElementById("filePreview").classList.remove("hidden");
-    document.getElementById("hashSection").classList.remove("hidden");
+    const fileSize = `${(file.size / 1024).toFixed(2)} KB`;
 
-    document.getElementById("fileName").innerText = file.name;
-    document.getElementById("fileSize").innerText =
-        (file.size / 1024).toFixed(2) + " KB";
+    showElement("filePreview");
+    showElement("hashSection");
+    showElement("filePreviewMobile");
+    showElement("hashSectionMobile");
 
-    // Generate hash
-    document.getElementById("hashValue").innerText = "Generating Fingerprint...";
+    setText("fileName", file.name);
+    setText("fileNameMobile", file.name);
+    setText("fileSize", `Size: ${fileSize}`);
+    setText("fileSizeMobile", `Size: ${fileSize}`);
+
+    setText("hashValue", "Generating Fingerprint...");
+    setText("hashValueMobile", "Generating Fingerprint...");
     selectedFileHash = await calculateHash(file);
-    document.getElementById("hashValue").innerText = selectedFileHash;
+    setText("hashValue", selectedFileHash);
+    setText("hashValueMobile", selectedFileHash);
 
-    // Enable register button
-    const btn = document.getElementById("submitBtn");
-    btn.disabled = false;
-    btn.classList.remove("bg-slate-200", "text-slate-400");
-    btn.classList.add("bg-primary", "text-white");
+    setButtonEnabled("submitBtn", true, "Register Document");
+    setButtonEnabled("submitBtnMobile", true, "Register Document");
 }
 
 /**
@@ -39,7 +104,7 @@ async function calculateHash(file) {
     const buffer = await file.arrayBuffer();
     const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
     return Array.from(new Uint8Array(hashBuffer))
-        .map(b => b.toString(16).padStart(2, "0"))
+        .map((b) => b.toString(16).padStart(2, "0"))
         .join("");
 }
 
@@ -49,15 +114,15 @@ async function calculateHash(file) {
 async function handleRegistration() {
     if (!selectedFileHash) return;
 
-    const btn = document.getElementById("submitBtn");
-    btn.innerText = "Processing...";
-    btn.disabled = true;
+    setButtonEnabled("submitBtn", false, "Processing...");
+    setButtonEnabled("submitBtnMobile", false, "Processing...");
 
     try {
-        const response = await fetch("http://localhost:3000/api/register", {
+        const response = await fetch(buildApiUrl("/register"), {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...authHeaders()
             },
             body: JSON.stringify({
                 hash: selectedFileHash
@@ -72,12 +137,11 @@ async function handleRegistration() {
 
         alert("Document registered successfully!");
         resetSelection();
-
     } catch (error) {
         console.error(error);
         alert("Registration failed: " + error.message);
-        btn.disabled = false;
-        btn.innerText = "Register on Blockchain";
+        setButtonEnabled("submitBtn", true, "Register Document");
+        setButtonEnabled("submitBtnMobile", true, "Register Document");
     }
 }
 
@@ -85,13 +149,22 @@ async function handleRegistration() {
  * 4. Reset UI
  */
 function resetSelection() {
-    document.getElementById("fileInput").value = "";
-    document.getElementById("filePreview").classList.add("hidden");
-    document.getElementById("hashSection").classList.add("hidden");
+    selectedFileHash = "";
 
-    const btn = document.getElementById("submitBtn");
-    btn.disabled = true;
-    btn.innerText = "Register on Blockchain";
-    btn.classList.remove("bg-primary", "text-white");
-    btn.classList.add("bg-slate-200", "text-slate-400");
+    const desktopInput = document.getElementById("fileInput");
+    const mobileInput = document.getElementById("fileInputMobile");
+    if (desktopInput) {
+        desktopInput.value = "";
+    }
+    if (mobileInput) {
+        mobileInput.value = "";
+    }
+
+    hideElement("filePreview");
+    hideElement("hashSection");
+    hideElement("filePreviewMobile");
+    hideElement("hashSectionMobile");
+
+    setButtonEnabled("submitBtn", false, "Register Document");
+    setButtonEnabled("submitBtnMobile", false, "Register Document");
 }

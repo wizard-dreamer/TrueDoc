@@ -1,5 +1,18 @@
 import express from "express";
 import { contract, checkBlockchain } from "./blockchain.js";
+import {
+  getAuthSummary,
+  getSuperuserConfig,
+  getUserCount,
+  requireRole,
+} from "./auth.js";
+import {
+  getCurrentUser,
+  login,
+  resendVerification,
+  signup,
+  verifyEmailFromBody
+} from "./controllers/authController.js";
 
 const router = express.Router();
 
@@ -8,13 +21,36 @@ const router = express.Router();
  */
 router.get("/health", async (req, res) => {
   const ok = await checkBlockchain();
-  res.json({ blockchain: ok ? "online" : "offline" });
+  res.json({
+    blockchain: ok ? "online" : "offline",
+    users: getUserCount(),
+    superuserConfigured: getSuperuserConfig().configured
+  });
+});
+
+router.post("/auth/signup", signup);
+
+router.post("/auth/login", login);
+
+router.post("/auth/resend-verification", resendVerification);
+
+router.post("/auth/verify-email", verifyEmailFromBody);
+
+router.get("/auth/me", getCurrentUser);
+
+router.get("/admin/overview", requireRole(["superuser"]), async (req, res) => {
+  const ok = await checkBlockchain();
+  res.json({
+    user: req.user,
+    blockchain: ok ? "online" : "offline",
+    registeredUsers: getAuthSummary()
+  });
 });
 
 /**
  * Register document hash
  */
-router.post("/register", async (req, res) => {
+router.post("/register", requireRole(["issuer", "superuser"]), async (req, res) => {
   try {
     const { hash } = req.body;
 

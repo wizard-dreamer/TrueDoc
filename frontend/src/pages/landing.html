@@ -31,49 +31,149 @@
             background-size: cover;
             background-position: center;
         }
+
+        .mobile-surface {
+            background:
+                radial-gradient(circle at top left, rgba(17, 82, 212, 0.22), transparent 38%),
+                linear-gradient(160deg, rgba(16, 22, 34, 0.99), rgba(16, 22, 34, 0.93));
+        }
+
+        .mobile-outline-card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+        }
+
+        .mobile-soft-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94));
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        .mobile-vault-card {
+            box-shadow: 0 24px 60px rgba(17, 82, 212, 0.24);
+        }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white transition-colors duration-200">
     <div class="relative flex min-h-screen w-full flex-col">
         
         <header class="sticky top-0 z-50 w-full bg-white/90 dark:bg-background-dark/90 backdrop-blur-md border-b dark:border-slate-800">
-            <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
-                <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.reload()">
+            <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between md:px-8">
+                <div class="flex items-center gap-2 cursor-pointer self-start sm:self-auto" onclick="window.location.reload()">
                     <div class="bg-primary size-9 md:size-10 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
                         <span class="material-symbols-outlined text-white text-[24px] md:text-[28px]">shield_person</span>
                     </div>
                     <h2 class="text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-white">TrueDoc</h2>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <nav class="hidden lg:flex items-center gap-6 mr-6">
+                <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:justify-end">
+                    <nav class="hidden flex-wrap items-center gap-x-4 gap-y-2 text-sm sm:flex sm:mr-2 lg:mr-6">
                         <a href="#how" class="text-sm font-semibold hover:text-primary transition-colors">How it Works</a>
                         <a href="#" class="text-sm font-semibold hover:text-primary transition-colors">Security</a>
+                        <a href="superuser.html" data-superuser-link class="hidden text-sm font-semibold hover:text-primary transition-colors">Admin</a>
                     </nav>
-                    <button class="flex items-center justify-center rounded-full h-10 px-5 bg-primary text-white text-sm font-bold shadow-lg active:scale-95 transition-all">
+                    <button data-auth-cta class="flex w-full items-center justify-center rounded-full h-11 px-5 bg-primary text-white text-sm font-bold shadow-lg active:scale-95 transition-all sm:h-10 sm:w-auto">
                         <span class="material-symbols-outlined text-[18px] mr-2">shield_lock</span>
-                        Public Access
+                        Login / Signup
                     </button>
                 </div>
             </div>
         </header>
 
         <main class="flex-grow">
-            <section class="px-4 py-8 md:px-8 md:py-16">
+            <section class="px-4 py-5 md:px-8 md:py-16">
                 <div class="mx-auto max-w-7xl">
+                    <div class="lg:hidden space-y-5">
+                        <section class="mobile-surface overflow-hidden rounded-[2rem] p-5 text-white shadow-2xl">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-blue-200" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+                                    <span class="text-lg font-black tracking-tight uppercase">TrueDoc</span>
+                                </div>
+                                <button data-auth-cta class="flex h-10 items-center justify-center rounded-full bg-white/10 px-4 text-xs font-bold text-white backdrop-blur-md transition-all">
+                                    Login / Signup
+                                </button>
+                            </div>
+
+                            <div class="mt-8">
+                                <span class="inline-flex rounded-full bg-white/8 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-100">Secure Verification</span>
+                                <h1 class="mt-5 text-[2.6rem] font-black leading-[0.9] tracking-tight">
+                                    Trust But
+                                    <br/>
+                                    <span class="text-blue-300">Verify.</span>
+                                </h1>
+                                <p class="mt-5 max-w-[18rem] text-sm leading-6 text-slate-300">
+                                    Secure blockchain document verification for the modern era. Protect your credentials with immutable cryptographic proof.
+                                </p>
+                            </div>
+                        </section>
+
+                        <button onclick="window.location.href='auth.html'" class="mobile-vault-card relative w-full overflow-hidden rounded-[2rem] bg-primary p-6 text-left text-white">
+                            <div class="absolute right-5 top-5">
+                                <span class="material-symbols-outlined text-[72px] text-white/15" style="font-variation-settings: 'wght' 700;">account_balance</span>
+                            </div>
+                            <div class="relative z-10 max-w-[14rem]">
+                                <p class="text-[11px] font-bold uppercase tracking-[0.24em] text-white/70">Institutional Portal</p>
+                                <h2 class="mt-3 text-[1.9rem] font-black leading-[1.0]">Issuer Portal</h2>
+                                <p class="mt-3 text-sm leading-6 text-blue-100">For universities and organizations to issue unforgeable digital certificates on the blockchain.</p>
+                                <div class="mt-6 inline-flex items-center gap-2 text-sm font-bold">
+                                    <span>Enter Portal</span>
+                                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                </div>
+                            </div>
+                        </button>
+
+                        <button onclick="window.location.href='verify.html'" class="mobile-soft-card flex w-full items-center justify-between gap-4 rounded-[2rem] p-5 text-left text-slate-900">
+                            <div class="flex items-center gap-4">
+                                <div class="flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+                                    <span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                                </div>
+                                <div>
+                                    <p class="text-[11px] font-bold uppercase tracking-[0.24em] text-slate-400">Verification Portal</p>
+                                    <h3 class="mt-1 text-xl font-black">Verify Now</h3>
+                                    <p class="mt-2 text-sm leading-6 text-slate-500">Instantly check the authenticity of a document. No account required for public verification.</p>
+                                </div>
+                            </div>
+                            <span class="material-symbols-outlined shrink-0 text-slate-400">qr_code_scanner</span>
+                        </button>
+
+                        <section class="grid grid-cols-2 gap-3">
+                            <div class="rounded-[1.75rem] border-l-4 border-primary bg-white p-4 shadow-sm">
+                                <span class="material-symbols-outlined text-primary">lock</span>
+                                <h4 class="mt-3 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-900">Secure Access</h4>
+                                <p class="mt-2 text-xs leading-5 text-slate-500">Protected issuer login before document registration.</p>
+                            </div>
+                            <div class="rounded-[1.75rem] border-l-4 border-primary bg-white p-4 shadow-sm">
+                                <span class="material-symbols-outlined text-primary">hub</span>
+                                <h4 class="mt-3 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-900">Blockchain Proof</h4>
+                                <p class="mt-2 text-xs leading-5 text-slate-500">Hashes are verified against on-chain document records.</p>
+                            </div>
+                        </section>
+
+                        <footer class="pb-28 pt-2 text-center">
+                            <a href="superuser.html" data-superuser-link class="hidden items-center justify-center gap-2 rounded-full px-4 py-3 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-400 transition-colors hover:bg-slate-100 hover:text-primary">
+                                <span class="material-symbols-outlined text-base">admin_panel_settings</span>
+                                Admin Access
+                            </a>
+                        </footer>
+
+                        <div id="navbar-container"></div>
+                    </div>
+
                     <div class="relative overflow-hidden rounded-3xl hero-bg shadow-2xl">
-                        <div class="flex min-h-[450px] md:min-h-[550px] flex-col items-center justify-center p-6 text-center md:p-12">
+                        <div class="hidden lg:flex min-h-[360px] md:min-h-[550px] flex-col items-center justify-center p-5 text-center sm:p-6 md:p-12">
                             <div class="max-w-3xl space-y-6">
                                 <h1 class="text-white text-3xl font-black leading-tight sm:text-5xl md:text-6xl">
                                     Trust But <span class="text-blue-400">Verify</span>.
                                 </h1>
-                                <p class="text-slate-300 text-base md:text-xl font-medium leading-relaxed">
+                                <p class="text-slate-300 text-sm sm:text-base md:text-xl font-medium leading-relaxed">
                                     Secure blockchain document verification for the modern era. Protect your credentials with immutable cryptographic proof.
                                 </p>
                             </div>
                             
-                            <div class="flex flex-col sm:flex-row gap-4 mt-10 w-full sm:w-auto">
-                                <button onclick="window.location.href='upload.html'" class="w-full sm:min-w-[200px] flex items-center justify-center rounded-xl h-14 bg-primary text-white font-bold shadow-xl hover:bg-blue-600 active:scale-95 transition-all">
+                            <div class="hidden lg:flex flex-col sm:flex-row gap-4 mt-10 w-full sm:w-auto">
+                                <button onclick="window.location.href='auth.html'" class="w-full sm:min-w-[200px] flex items-center justify-center rounded-xl h-14 bg-primary text-white font-bold shadow-xl hover:bg-blue-600 active:scale-95 transition-all">
                                     <span class="material-symbols-outlined mr-2">upload_file</span>
                                     Issuer Portal
                                 </button>
@@ -87,9 +187,9 @@
                 </div>
             </section>
 
-            <section class="px-4 py-12 md:px-8 mx-auto max-w-7xl">
+            <section id="how" class="hidden px-4 py-8 md:px-8 md:py-12 mx-auto max-w-7xl sm:block">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-                    <div onclick="window.location.href='upload.html'" class="group flex flex-col p-8 rounded-3xl border dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-2xl hover:border-primary transition-all cursor-pointer">
+                    <div onclick="window.location.href='auth.html'" class="group flex flex-col p-6 sm:p-8 rounded-3xl border dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-2xl hover:border-primary transition-all cursor-pointer">
                         <div class="size-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined text-3xl">account_balance</span>
                         </div>
@@ -100,7 +200,7 @@
                         </div>
                     </div>
 
-                    <div onclick="window.location.href='verify.html'" class="group flex flex-col p-8 rounded-3xl border dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-2xl hover:border-primary transition-all cursor-pointer">
+                    <div onclick="window.location.href='verify.html'" class="group flex flex-col p-6 sm:p-8 rounded-3xl border dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-2xl hover:border-primary transition-all cursor-pointer">
                         <div class="size-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined text-3xl">verified</span>
                         </div>
@@ -118,5 +218,11 @@
             <p>&copy; 2026 TrueDoc Systems &bull; Built with Blockchain Integrity</p>
         </footer>
     </div>
+    <script src="../js/apiConfig.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script>
+        loadNavbar();
+    </script>
 </body>
 </html>

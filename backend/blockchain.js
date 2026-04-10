@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
-import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { RPC_URL, PRIVATE_KEY, CONTRACT_ADDRESS } from "./config.js";
 
 /**
  * ES Module __dirname fix
@@ -10,14 +10,20 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: path.join(__dirname, ".env") });
-
 /**
  * ENV VALIDATION (prevents ENS errors)
  */
-const RPC_URL = process.env.RPC_URL;
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
+if (!RPC_URL) {
+  throw new Error("RPC_URL missing in .env");
+}
+
+if (!PRIVATE_KEY || !PRIVATE_KEY.startsWith("0x") || PRIVATE_KEY.length !== 66) {
+  throw new Error("Invalid PRIVATE_KEY in .env");
+}
+
+if (!CONTRACT_ADDRESS || !CONTRACT_ADDRESS.startsWith("0x") || CONTRACT_ADDRESS.length !== 42) {
+  throw new Error("Invalid CONTRACT_ADDRESS in .env");
+}
 
 if (!RPC_URL) {
   throw new Error("RPC_URL missing in .env");
