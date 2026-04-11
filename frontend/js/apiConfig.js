@@ -8,7 +8,7 @@ const API_BASE_URL = "https://truedoc-plep.onrender.com";
 
 function buildApiUrl(path = "") {
     const cleanedPath = String(path || "").replace(/^\/*/, "");
-    const prefix = cleanedPath.startsWith("verify") ? "" : "/api";
+    const prefix = "/api";
     return `${API_BASE_URL}${prefix}/${cleanedPath}`;
 }
 
