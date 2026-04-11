@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { BACKEND_BASE_URL, SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS, EMAIL_FROM } from "../config.js";
+import { FRONTEND_URL, SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS, EMAIL_FROM } from "../config.js";
 
 function getEmailConfig() {
   return {
@@ -31,8 +31,8 @@ function createTransporter() {
 }
 
 export function buildVerificationLink(token) {
-  const baseUrl = String(BACKEND_BASE_URL || "http://127.0.0.1:3000").replace(/\/$/, "");
-  return `${baseUrl}/verify/${encodeURIComponent(token)}`;
+  const frontendUrl = String(FRONTEND_URL || "http://127.0.0.1:5500").replace(/\/$/, "");
+  return `${frontendUrl}/verify-email.html?token=${encodeURIComponent(token)}`;
 }
 
 export async function sendVerificationEmail(user) {
