@@ -26,6 +26,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 app.use(express.json());
+app.get("/", (req, res) => res.send("Backend is running"));
 app.get("/verify/:token", verifyEmail);
 app.use("/api", routes);
 
