@@ -105,7 +105,7 @@ async function apiRequest(path, options = {}) {
 }
 
 async function submitAuthForm(mode, payload) {
-    const data = await apiRequest(`/${mode}`, {
+    const data = await apiRequest(`/auth/${mode}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -119,7 +119,7 @@ async function submitAuthForm(mode, payload) {
 }
 
 async function verifyEmailTokenRequest(token) {
-    const data = await apiRequest("/verify-email", {
+    const data = await apiRequest("/auth/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token })
@@ -130,7 +130,7 @@ async function verifyEmailTokenRequest(token) {
 }
 
 async function resendVerificationRequest(email) {
-    return apiRequest("/resend-verification", {
+    return apiRequest("/auth/resend-verification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email })
@@ -187,7 +187,7 @@ async function requireAuthenticatedUser(roles = []) {
     }
 
     try {
-        const data = await apiRequest("/me");
+        const data = await apiRequest("/auth/me");
         writeAuthState({
             token: getToken(),
             user: data.user
