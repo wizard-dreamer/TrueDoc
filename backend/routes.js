@@ -28,15 +28,15 @@ router.get("/health", async (req, res) => {
   });
 });
 
-router.post("/auth/register", signup);
+router.post("/register", signup);
 
-router.post("/auth/login", login);
+router.post("/login", login);
 
-router.post("/auth/resend-verification", resendVerification);
+router.post("/resend-verification", resendVerification);
 
-router.post("/auth/verify-email", verifyEmailFromBody);
+router.post("/verify-email", verifyEmailFromBody);
 
-router.get("/auth/me", getCurrentUser);
+router.get("/me", getCurrentUser);
 
 router.get("/admin/overview", requireRole(["superuser"]), async (req, res) => {
   const ok = await checkBlockchain();
