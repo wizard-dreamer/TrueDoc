@@ -59,7 +59,7 @@ async function handleFileVerify(event) {
         ], "Processing");
 
         const fileHash = await calculateHash(file);
-        const response = await fetch(`${API_BASE_URL.replace('/api', '')}/verify/${encodeURIComponent(fileHash)}`);
+        const response = await fetch(buildApiUrl(`/verify/${encodeURIComponent(fileHash)}`));
         const data = await response.json();
 
         if (!response.ok) {
