@@ -111,7 +111,7 @@ TrueDoc/
 │   └── .env
 │
 ├── frontend/
-│   ├── landing.html
+│   ├── index.html
 │   ├── upload.html
 │   ├── verify.html
 │   └── js/
@@ -193,7 +193,7 @@ node server.js
 
 ### 3️⃣ Open frontend
 
-Open `frontend/upload.html` or `landing.html` in browser
+Open `frontend/upload.html` or `index.html` in browser
 
 ---
 

@@ -161,7 +161,7 @@ function updateAuthUI() {
         `;
         element.onclick = () => {
             clearAuthState();
-            window.location.href = "landing.html";
+            window.location.href = "index.html";
         };
     });
 
@@ -194,7 +194,7 @@ async function requireAuthenticatedUser(roles = []) {
         });
 
         if (roles.length && !roles.includes(data.user.role)) {
-            window.location.href = data.user.role === "superuser" ? "superuser.html" : "landing.html";
+            window.location.href = data.user.role === "superuser" ? "superuser.html" : "index.html";
             return null;
         }
 
