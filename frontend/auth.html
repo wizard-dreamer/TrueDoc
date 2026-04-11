@@ -270,6 +270,7 @@
 
         signupForm.addEventListener("submit", async (event) => {
             event.preventDefault();
+            console.log("Signup form submitted");
             const submit = document.getElementById("signupSubmit");
             submit.disabled = true;
             submit.textContent = "Creating account...";
