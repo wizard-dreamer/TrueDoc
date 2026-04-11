@@ -28,7 +28,7 @@ router.get("/health", async (req, res) => {
   });
 });
 
-router.post("/auth/signup", signup);
+router.post("/auth/register", signup);
 
 router.post("/auth/login", login);
 
